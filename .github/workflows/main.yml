@@ -43,6 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         pr_numbers=$(cat pr_numbers.txt)
+        rm pr_numbers.txt
         echo "PR numbers: ${pr_numbers}"
         git config --global pull.rebase false
         git config --global user.email "sahil.mansoor@anywhere.co"
