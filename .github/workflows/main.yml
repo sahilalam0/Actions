@@ -1,0 +1,52 @@
+name: Update PRs on merge with master
+
+on:
+  pull_request:
+    types: [closed]
+  push:
+    branches:
+      - main
+
+jobs:
+  update_prs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install jq
+      run: sudo apt-get update && sudo apt-get install -y jq
+      
+    - name: Checkout main branch
+      uses: actions/checkout@v3
+      with:
+        ref: main
+      
+    - name: Get open pull requests
+      id: get_pull_requests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl -sSL -H "Authorization: token ${GITHUB_TOKEN}" \
+             -H "Accept: application/vnd.github+json" \
+             https://api.github.com/repos/${{ github.repository }}/pulls?state=open \
+             | jq '.[].head.ref' > pr_numbers.txt
+      shell: bash
+
+    - name: Update pull requests
+      id: update_pull_requests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        pr_numbers=$(cat pr_numbers.txt)
+        echo "PR numbers: ${pr_numbers}"
+        git config --global pull.rebase false
+        git config --global user.email "sahil.mansoor@anywhere.co"
+        git config --global user.name "Sahil Alam"
+        git checkout main
+        git pull
+        for pr_number in ${pr_numbers}; do
+          unquoted_branch_name=${pr_number//\"}
+          git checkout $unquoted_branch_name
+          git pull origin main
+          git commit --no-edit
+          git push origin $unquoted_branch_name
+        done
