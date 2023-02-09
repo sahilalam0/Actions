@@ -48,6 +48,6 @@ jobs:
           git checkout $unquoted_branch_name
           git pull origin main --allow-unrelated-histories
           git add .
-          git commit --no-edit
+          git commit -m 'merged branch with master'
           git push
         done
