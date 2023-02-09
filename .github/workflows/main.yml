@@ -47,7 +47,6 @@ jobs:
         git config --global pull.rebase false
         git config --global user.email "sahil.mansoor@anywhere.co"
         git config --global user.name "Sahil Alam"
-        git checkout main
         git pull
         for pr_number in ${pr_numbers}; do
           unquoted_branch_name=${pr_number//\"}
