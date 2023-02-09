@@ -47,6 +47,7 @@ jobs:
           unquoted_branch_name=${pr_number//\"}
           git checkout $unquoted_branch_name
           git pull origin main
+          git merge --allow-unrelated-histories main
           git commit --no-edit
           git push origin $unquoted_branch_name
         done
