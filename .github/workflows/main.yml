@@ -27,7 +27,7 @@ jobs:
               state: 'open',
             });
             console.log(result.data[1].labels)
-            const containsBeta=result.data.find((pr)=> pr.labels.find((label)=>label.name==='beta').filter(Boolean));
+            const containsBeta=result.data.find((pr)=> !!pr.labels.find((label)=>label.name==='beta'));
             console.log(containsBeta)
         
 
