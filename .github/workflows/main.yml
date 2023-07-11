@@ -13,4 +13,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
+      - name: Main Step
+        uses: actions/github-script@v6
+        env: 
+          Should_Deploy: false
+        with:
+          script: |
+            console.log(process.env.Should_Deploy)
+        
 
