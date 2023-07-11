@@ -20,6 +20,6 @@ jobs:
         with:
           script: |
             process.env.Should_Deploy=true
-            console.log(process.env.Should_Deploy)
+            exec.exec('npm -v')
         
 
