@@ -20,7 +20,12 @@ jobs:
         with:
           script: |
             process.env.Should_Deploy=true
-            exec.exec('npm -v')
-            console.log(github)
+            await exec.exec('npm -v')
+            const result= await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            })
+            console.log(result);
         
 
