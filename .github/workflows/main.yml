@@ -26,7 +26,7 @@ jobs:
               repo: context.repo.repo,
               state: 'open',
             });
-            console.log(result)
+            console.log(result.data[1].labels[0])
             const containsBeta=result.data.find((PR)=> PR.labels.includes('beta'));
             console.log(containsBeta)
         
