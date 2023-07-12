@@ -1,7 +1,7 @@
 name: ON PR SYNC
 on: 
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
+    types: [opened, synchronize, reopened, labeled, closed]
 
 jobs:
   job-one:
@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '14'
       - run: echo `${{github}}`
-      - name: Main Step
+      - name: Check If Any PR contains Beta tag
         uses: actions/github-script@v6
         env: 
           Should_Deploy: false
