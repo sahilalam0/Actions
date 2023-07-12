@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
+        with:
+          ref: 'main'
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -31,5 +33,5 @@ jobs:
             });
             const containsBeta=!!result.data.find((pr)=> !!pr.labels.find((label)=>label.name==='beta'));
             console.log('Any Open PR contains Beta : ', containsBeta);
-            await exec.exec('git',['branch','show-current'])        
+            await exec.exec('git branch --show-current')        
 
