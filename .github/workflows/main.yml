@@ -13,6 +13,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
+      - run: echo `${{github}}`
       - name: Main Step
         uses: actions/github-script@v6
         env: 
@@ -27,6 +28,5 @@ jobs:
               state: 'open',
             });
             const containsBeta=!!result.data.find((pr)=> !!pr.labels.find((label)=>label.name==='beta'));
-            console.log(github)
         
 
