@@ -25,5 +25,6 @@ jobs:
             const result=await script({github, context, exec});
             return result;
       - name: Get result
+        if: ${{steps.beta-deploy.outputs.result == 'true'}}
         run: echo "${{steps.beta-deploy.outputs.result}}"
 
