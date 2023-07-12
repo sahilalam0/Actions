@@ -17,7 +17,7 @@ jobs:
       - name: Check If Any PR contains Beta tag
         uses: actions/github-script@v6
         env: 
-          Current_PR_Contains_Beta: (!contains(github.event.pull_request.labels.*.name, 'beta')) 
+          Current_PR_Contains_Beta: ${{(!contains(github.event.pull_request.labels.*.name, 'beta'))}}
         with:
           script: |
             console.log(process.env.Current_PR_Contains_Beta);
