@@ -15,12 +15,10 @@ jobs:
           node-version: '14'
       - name: Check If Any PR contains Beta tag
         uses: actions/github-script@v6
-        env: 
-          Current_PR_Contains_Beta: ${{contains(github.event.pull_request.labels.*.name, 'beta')}}
         with:
           script: |
-            console.log(context)
-            if(process.env.Current_PR_Contains_Beta === 'true'){
+            const currentPRContainsBeta=context.payload.pull_request.labels.find((label)=>label.name==='beta');
+            if(currentPRContainsBeta){
               console.log('Current PR contains Beta tag');
               return;
             }
