@@ -21,6 +21,7 @@ jobs:
         if: (!contains(github.event.pull_request.labels.*.name, 'beta'))
         with:
           script: |
+            console.log('Current PR does not contains beta')
             process.env.Should_Deploy=true
             await exec.exec('npm -v')
             const result= await github.rest.pulls.list({
