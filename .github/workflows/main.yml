@@ -20,7 +20,7 @@ jobs:
         with:
           script: |
             console.log(process.env.Current_PR_Contains_Beta);
-            if(process.env.Current_PR_Contains_Beta){
+            if(Boolean(process.env.Current_PR_Contains_Beta)){
               console.log('Current PR contains Beta tag');
               return;
             }
