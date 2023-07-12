@@ -18,6 +18,7 @@ jobs:
         uses: actions/github-script@v6
         env: 
           Should_Deploy: false
+        if: (!contains(github.event.pull_request.labels.*.name, 'beta'))
         with:
           script: |
             process.env.Should_Deploy=true
