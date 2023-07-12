@@ -13,22 +13,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: echo `${{github}}`
       - name: Check If Any PR contains Beta tag
         uses: actions/github-script@v6
         env: 
-          Should_Deploy: false
-        if: (!contains(github.event.pull_request.labels.*.name, 'beta'))
+          Current_PR_Contains_Beta: ${{contains(github.event.pull_request.labels.*.name, 'beta')}}
         with:
           script: |
-            console.log('Current PR does not contains beta')
-            process.env.Should_Deploy=true
-            await exec.exec('npm -v')
+            if(process.env.Current_PR_Contains_Beta === 'true'){
+              console.log('Current PR contains Beta tag');
+              return;
+            }
+            console.log('Current PR does not contains Beta tag');
+            await exec.exec('npm -v');
             const result= await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
             });
             const containsBeta=!!result.data.find((pr)=> !!pr.labels.find((label)=>label.name==='beta'));
+            console.log('Any Open PR contains Beta : ', containsBeta);
         
 
