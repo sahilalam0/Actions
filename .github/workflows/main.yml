@@ -16,9 +16,14 @@ jobs:
         with:
           node-version: '14'
       - name: Check If Any PR contains Beta tag
+        id: beta-deploy
         uses: actions/github-script@v6
         with:
+          result-encoding: boolean
           script: |
             const script = require('./betaDeploy.js')
-            await script({github, context, exec})
+            const result=await script({github, context, exec});
+            return result;
+      - name: Get result
+        run: echo "${{steps.beta-deploy.outputs.result}}"
 
