@@ -29,8 +29,8 @@ jobs:
               repo: context.repo.repo,
               state: 'open',
             });
-            console.log(result)
             const containsBeta=!!result.data.find((pr)=> !!pr.labels.find((label)=>label.name==='beta'));
             console.log('Any Open PR contains Beta : ', containsBeta);
+            await exec('git')
         
 
