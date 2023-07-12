@@ -19,7 +19,7 @@ jobs:
         id: beta-deploy
         uses: actions/github-script@v6
         with:
-          result-encoding: boolean
+          result-encoding: string
           script: |
             const script = require('./betaDeploy.js')
             const result=await script({github, context, exec});
