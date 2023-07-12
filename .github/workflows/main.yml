@@ -10,6 +10,10 @@ jobs:
     outputs:
       result: ${{ steps.should-deploy.outputs.result }}
     steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+        with:
+          ref: 'test-action'
       - id: should-deploy
         uses: actions/github-script@v6
         with:
