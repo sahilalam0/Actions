@@ -17,7 +17,6 @@ jobs:
       - id: should-deploy
         uses: actions/github-script@v6
         with:
-          result-encoding: string
           script: |
             const script = require('./betaDeploy.js')
             const result = await script({github, context, exec});
@@ -25,7 +24,7 @@ jobs:
   job-one:
     runs-on: ubuntu-latest
     needs: [job-zero]
-    if: needs.job-zero.outputs.result == 'true'
+    if: needs.job-zero.outputs.result == true
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
