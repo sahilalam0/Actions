@@ -13,6 +13,5 @@ module.exports =async ({context,exec,github})=>{
   });
   const containsBeta=result.data.some((pr)=> pr.labels.some((label)=>label.name==='beta'));
   console.log('Any Open PR contains Beta : ', containsBeta);
-  await exec.exec('git branch --show-current');
   return true;
 }
